@@ -8,9 +8,12 @@ const controller = require('./controller')
 const app = express()
 
 app.use(bodyParser.json())
+const port = 3020
 
 massive(process.env.CONNECTION_STRING).then(dbInstance=>{
     app.set('db',dbInstance)
+    app.listen(port, ()=>console.log(`Listening on port ${port}`))
+
 }).catch(err=>{
     console.log(err)
 })
@@ -19,8 +22,9 @@ massive(process.env.CONNECTION_STRING).then(dbInstance=>{
 
 app.get('/api/inventory',controller.getItems)
 app.post('/api/product',controller.addProduct)
+app.delete('/api/product/:id',controller.deleteProduct)
+app.put('/api/product/:id',controller.editProduct)
 
 
 
-const port = 3020
-app.listen(port, ()=>console.log(`Listening on port ${port}`))
+

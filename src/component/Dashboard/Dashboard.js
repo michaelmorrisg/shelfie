@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Product from '../Product/Product'
+import axios from 'axios'
 
 
 class Dashboard extends Component {
@@ -8,9 +9,15 @@ class Dashboard extends Component {
         this.state = {
 
         }
+        this.deleteProduct = this.deleteProduct.bind(this)
     }
 
-
+    deleteProduct(key){
+        axios.delete(`/api/product/${key}`)
+        .then(response=>{
+            this.props.getInventory()
+        })
+    }
 
 
     render(props){
@@ -18,9 +25,10 @@ class Dashboard extends Component {
             <div>
                 {this.props.inventory.map((element,i)=>{
                     return(
-                    <Product key={i} info={element}/>
+                    <Product current={this.props.current} key={element.id} info={element} deleteProduct={this.deleteProduct}/>
                     )
                 })}
+                <button onClick={()=>this.props.current()}>Hey</button>
                 
             </div>
         )
