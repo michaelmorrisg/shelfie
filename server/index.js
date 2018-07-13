@@ -17,7 +17,8 @@ massive(process.env.CONNECTION_STRING).then(dbInstance=>{
 
 //////Endpoints////////
 
-
+app.get('/api/inventory',controller.getItems)
+app.post('/api/product',controller.addProduct)
 
 
 

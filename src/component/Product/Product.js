@@ -5,7 +5,7 @@ export default function Product(props){
         <div>
             {props.info.name} <br/>
             {props.info.price} <br/>
-            {props.info.imgUrl}
+            <img src={props.info.img_url}/>
         </div>
     )
 }
